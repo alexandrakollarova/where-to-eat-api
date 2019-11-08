@@ -1,7 +1,6 @@
-// const path = require('path')
 const express = require('express')
 const request = require('request')
-// const xss = require('xss')
+const UsersService = require('./users-service')
 
 const businessesRouter = express.Router()
 

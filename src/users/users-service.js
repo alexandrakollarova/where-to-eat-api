@@ -1,11 +1,11 @@
 const bcrypt = require('bcryptjs')
 const xss = require('xss')
 
-const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/
-
+const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])[\S]+/
+                                          
 const UsersService = {
   hasUserWithUserName(db, user_name) {
-    return db('where_to_eat_db')
+    return db('users')
       .where({ user_name })
       .first()
       .then(user => !!user)
@@ -13,7 +13,7 @@ const UsersService = {
   insertUser(db, newUser) {
     return db
       .insert(newUser)
-      .into('where_to_eat_db')
+      .into('users')
       .returning('*')
       .then(([user]) => user)
   },

@@ -4,7 +4,7 @@ const config = require('../config')
 
 const AuthService = {
     getUserWithUserName(db, user_name) {
-      return db('where_to_eat_db')
+      return db('users')
         .where({ user_name })
         .first()
     },

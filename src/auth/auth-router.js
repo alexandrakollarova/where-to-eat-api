@@ -7,7 +7,9 @@ const jsonBodyParser = express.json()
 
 AuthRouter
     .post('/login', jsonBodyParser, (req, res, next) => {
-        const { user_name, user_password } = req.body
+        //const { user_name, user_password } = req.body
+        const user_name = req.body.user_name.value;
+        const user_password = req.body.user_password.value;
         const loginUser = { user_name, user_password }
     
         for (const [key, value] of Object.entries(loginUser))
@@ -17,7 +19,7 @@ AuthRouter
             })
 
         AuthService.getUserWithUserName(
-            req.app.get('db'),
+            req.app.get('where_to_eat_db'),
             loginUser.user_name
         )
         .then(dbUser => {

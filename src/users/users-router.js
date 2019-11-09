@@ -5,7 +5,8 @@ const UsersRouter = express.Router()
 
 UsersRouter
   .post('/', (req, res, next) => {
-    const { user_name, user_password} = req.body
+    const user_name = req.body.user_name.value;
+    const user_password = req.body.user_password.value;
 
     for (const field of ['user_name', 'user_password'])
       if (!req.body[field])

@@ -1,6 +1,5 @@
 const express = require('express')
 const request = require('request')
-const UsersService = require('./users-service')
 
 const businessesRouter = express.Router()
 

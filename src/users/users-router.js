@@ -16,7 +16,7 @@ UsersRouter
 
     // TODO: check user_name doesn't start with spaces
 
-    const passwordError = UsersService.validatePassword(password)
+    const passwordError = UsersService.validatePassword(user_password)
 
     if (passwordError)
       return res.status(400).json({ error: passwordError })
@@ -29,7 +29,7 @@ UsersRouter
         if (hasUserWithUserName)
           return res.status(400).json({ error: `Username already taken` })
 
-        return UsersService.hashPassword(password)
+        return UsersService.hashPassword(user_password)
           .then(hashedPassword => {
             const newUser = {
               user_name,

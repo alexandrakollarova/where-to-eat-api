@@ -32,7 +32,7 @@ describe('Auth Endpoints', () => {
     )
 
     const requiredFields = ['user_name', 'user_password']
-
+    
     requiredFields.forEach(field => {
         const loginAttemptBody = {
             user_name: testUser.user_name,

@@ -12,7 +12,10 @@ const AuthService = {
     comparePasswords(password, hash) {
       console.log(password, hash)
       console.log(bcrypt.compare(password, hash))
-      return bcrypt.compare(password, hash)
+      //return bcrypt.compare(password, hash)
+      bcrypt.compare(password, hash).then(res =>{
+        return res
+       })
     },
 
     createJwt(subject, payload) {

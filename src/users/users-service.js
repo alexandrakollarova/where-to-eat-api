@@ -10,7 +10,7 @@ const UsersService = {
       .first()
       .then(user => !!user)
   },
-  insertUser(db, newUser) { console.log(db); console.log(newUser);
+  insertUser(db, newUser) { 
     return db
       .insert(newUser)
       .into('users')
@@ -36,6 +36,7 @@ const UsersService = {
     return {
       id: user.id,
       user_name: xss(user.user_name),
+      user_password: xss(user.user_password)
     }
   },
 }

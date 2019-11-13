@@ -35,7 +35,7 @@ UsersRouter
             }
 
             return UsersService.insertUser(
-              req.app.get('where_to_eat_db'),
+              req.app.get('db'),
               newUser
             )
               .then(user => {console.log(user)
@@ -46,7 +46,7 @@ UsersRouter
               })
           })
       })
-      .catch(console.log(next))
+      .catch(next)
   })
 
 module.exports = UsersRouter

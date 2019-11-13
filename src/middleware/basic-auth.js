@@ -17,7 +17,7 @@ function requireAuth(req, res, next) {
   }
 
   AuthService.getUserWithUserName(
-    req.app.get('where_to_eat_db'),
+    req.app.get('db'),
     tokenUserName
   )
     .then(user => {

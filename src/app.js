@@ -32,7 +32,7 @@ app.use(bodyParser.json())
 app.use('/api/users', UsersRouter)
 
 //app.use('/api/business', businessesRouter)
-app.use('/api/auth', AuthRouter)
+app.use('/api/login', AuthRouter)
 
 app.use(function errorHandler(error, req, res, next) {
    let response;

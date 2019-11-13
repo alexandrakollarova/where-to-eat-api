@@ -20,7 +20,7 @@ UsersRouter
       return res.status(400).json({ error: passwordError })
 
     UsersService.hasUserWithUserName(
-      req.app.get('where_to_eat_db'),
+      req.app.get('db'),
       user_name
     )
       .then(hasUserWithUserName => {

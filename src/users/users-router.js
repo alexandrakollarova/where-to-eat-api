@@ -7,8 +7,7 @@ UsersRouter
   .post('/', (req, res, next) => {
     const user_name = req.body.user_name.value;
     const user_password = req.body.user_password.value;
-    console.log(user_name)
-    console.log(user_password)
+    
     for (const field of ['user_name', 'user_password'])
       if (!req.body[field])
         return res.status(400).json({
@@ -29,7 +28,7 @@ UsersRouter
           return res.status(400).json({ error: `Username already taken` })
 
         return UsersService.hashPassword(user_password)
-          .then(hashedPassword => { console.log(hashedPassword)
+          .then(hashedPassword => { 
             const newUser = {
               user_name,
               user_password: hashedPassword,
@@ -39,7 +38,7 @@ UsersRouter
               req.app.get('where_to_eat_db'),
               newUser
             )
-              .then(user => {
+              .then(user => {console.log(user)
                 res
                   .status(201)
                   .location(path.posix.join(req.originalUrl, `/${user.id}`))
@@ -47,7 +46,7 @@ UsersRouter
               })
           })
       })
-      .catch(next)
+      .catch(console.log(next))
   })
 
 module.exports = UsersRouter

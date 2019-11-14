@@ -41,16 +41,10 @@ UsersRouter
               newUser
             )
               .then(user => {
-                // res
-                //   .status(201)
-                  // .location(path.posix.join(req.originalUrl, `/${user.id}`))
-                  // .json(UsersService.serializeUser(user))
-
-                  const sub = user.user_name
-                  const payload = { user_id: user.id }
-                  res.send({
-                      authToken: AuthService.createJwt(sub, payload),
-                  })
+                res
+                  .status(201)
+                  .location(path.posix.join(req.originalUrl, `/${user.id}`))
+                  .json(UsersService.serializeUser(user))                  
               })
               
           })

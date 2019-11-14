@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const AuthService = require('./auth-service')
 const UsersService = require('./users-service')
 
 const UsersRouter = express.Router()
@@ -39,7 +40,7 @@ UsersRouter
               req.app.get('db'),
               newUser
             )
-              .then(res => {
+              .then(res => { console.log(res)
                 const sub = user.user_name
                 const payload = { user_id: user.id }
 

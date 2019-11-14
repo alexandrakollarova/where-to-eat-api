@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const AuthService = require('./auth-service')
+const AuthService = require('../auth/auth-service')
 const UsersService = require('./users-service')
 
 const UsersRouter = express.Router()

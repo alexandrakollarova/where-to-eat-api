@@ -41,11 +41,11 @@ const UsersService = {
           user_password: hashedPassword,
         }
 
-      return insertUser(
-        req.app.get('db'),
-        newUser
-      )
-    }
+        return insertUser(
+          req.app.get('db'),
+          newUser
+        )
+      })
   },
 
   serializeUser(user) {

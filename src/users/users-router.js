@@ -40,11 +40,14 @@ UsersRouter
               req.app.get('db'),
               newUser
             )
-              .then(res => { console.log(res)
+              .then(user => { console.log(user)
                 const sub = user.user_name
                 const payload = { user_id: user.id }
 
-                res.json({
+                console.log(sub)
+                console.log(payload)
+
+                user.json({
                     "user" : UsersService.serializeUser(user),
                     "authToken" : AuthService.createJwt(sub, payload)
                }) 

@@ -31,7 +31,7 @@ UsersRouter
           return res.status(400).json({ error: `Username already taken` })
       })
 
-      return UsersService.checkUserInput(user_name, user_password)
+      return UsersService.checkUserInput(user_name, user_password, req)
       
         .then(user => { console.log(user)
           const sub = user.user_name

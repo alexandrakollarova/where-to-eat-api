@@ -33,7 +33,7 @@ const UsersService = {
     return bcrypt.hash(password, 12)
   },
 
-  checkUserInput(user_name, user_password) { console.log(user_password)
+  checkUserInput(user_name, user_password, req) { console.log(user_password)
     return this.hashPassword(user_password)
       .then(hashedPassword => { 
         const newUser = {

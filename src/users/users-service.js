@@ -32,6 +32,22 @@ const UsersService = {
   hashPassword(password) {
     return bcrypt.hash(password, 12)
   },
+
+  checkUserInput(user_password) {
+    return hashPassword(user_password)
+      .then(hashedPassword => { 
+        const newUser = {
+          user_name,
+          user_password: hashedPassword,
+        }
+
+      return insertUser(
+        req.app.get('db'),
+        newUser
+      )
+    }
+  },
+
   serializeUser(user) {
     return {
       id: user.id,

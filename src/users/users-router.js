@@ -17,7 +17,7 @@ UsersRouter
         })
 
     const passwordError = UsersService.validatePassword(user_password)
-
+    
     if (passwordError)
       return res.status(400).json({ error: passwordError })
 
@@ -28,30 +28,20 @@ UsersRouter
       .then(hasUserWithUserName => {
         if (hasUserWithUserName)
           return res.status(400).json({ error: `Username already taken` })
-
-        return UsersService.hashPassword(user_password)
-          .then(hashedPassword => { 
-            const newUser = {
-              user_name,
-              user_password: hashedPassword,
-            }
-
-            return UsersService.insertUser(
-              req.app.get('db'),
-              newUser
-            )
-              .then(user => {
-                const sub = user.user_name
-                const payload = { user_id: user.id }
-
-                res.send({
-                    // user : UsersService.serializeUser(user),
-                    authToken : AuthService.createJwt(sub, payload)
-               }) 
-              })
-              
-          })
       })
+
+      return UsersService.checkUserInput(user_password)
+      
+        .then(user => { console.log(user)
+          const sub = user.user_name
+          const payload = { user_id: user.id }
+console.log(res)
+          res.send({
+            // user : UsersService.serializeUser(user),
+            authToken : AuthService.createJwt(sub, payload)``
+          }) 
+        })
+        
       .catch(next)
   })
 

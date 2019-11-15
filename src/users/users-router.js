@@ -44,10 +44,10 @@ UsersRouter
                 const sub = user.user_name
                 const payload = { user_id: user.id }
 
-                user.json({
+                return user.json({
                     "user" : UsersService.serializeUser(user),
                     "authToken" : AuthService.createJwt(sub, payload)
-               },console.log(user.authToken)) 
+               }) 
               })
               
           })

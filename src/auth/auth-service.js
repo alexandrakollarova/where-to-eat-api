@@ -14,8 +14,7 @@ const AuthService = {
     },
 
     createJwt(subject, payload) {
-      console.log(subject); 
-      console.log(payload);
+     
       console.log(jwt.sign(payload, config.JWT_SECRET, {
         subject,
         expiresIn: config.JWT_EXPIRY,

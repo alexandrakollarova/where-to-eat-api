@@ -44,13 +44,13 @@ UsersRouter
                 const sub = user.user_name
                 const payload = { user_id: user.id }
 
-                console.log( user.json({
-                  "user" : UsersService.serializeUser(user),
-                  "authToken" : AuthService.createJwt(sub, payload)
-             }))
-                user.json({
-                    "user" : UsersService.serializeUser(user),
-                    "authToken" : AuthService.createJwt(sub, payload)
+                console.log( user.send({
+                  user : UsersService.serializeUser(user),
+                  authToken : AuthService.createJwt(sub, payload)
+             }) )
+                user.send({
+                    user : UsersService.serializeUser(user),
+                    authToken : AuthService.createJwt(sub, payload)
                }) 
               })
               

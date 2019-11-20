@@ -9,8 +9,7 @@ UsersRouter
   .post('/', (req, res, next) => {
     const user_name = req.body.user_name.value;
     const user_password = req.body.user_password.value;
-    console.log(user_name)
-    console.log(user_password)
+   
     for (const field of ['user_name', 'user_password'])
       if (!req.body[field])
         return res.status(400).json({
@@ -33,13 +32,13 @@ UsersRouter
 
       return UsersService.checkUserInput(user_name, user_password, req)
       
-        .then(user => { console.log(user)
+        .then(user => { 
           const sub = user.user_name
           const payload = { user_id: user.id }
-console.log(res)
+
           res.send({
             // user : UsersService.serializeUser(user),
-            authToken : AuthService.createJwt(sub, payload)``
+            authToken : AuthService.createJwt(sub, payload)
           }) 
         })
         

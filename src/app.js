@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const businessesRouter = require('./businesses/businesses-router')
+const BusinessesRouter = require('./businesses/businesses-router')
 const UsersRouter = require('./users/users-router')
 const AuthRouter = require('./auth/auth-router')
 const jsonBodyParser = express.json()
@@ -30,8 +30,7 @@ app.use(bodyParser.json())
 
 
 app.use('/api/users', UsersRouter)
-
-//app.use('/api/business', businessesRouter)
+app.use('/api/businesses', BusinessesRouter)
 app.use('/api/login', AuthRouter)
 
 app.use(function errorHandler(error, req, res, next) {

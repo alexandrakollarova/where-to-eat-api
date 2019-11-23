@@ -5,7 +5,10 @@ const BusinessesRouter = express.Router()
 
 BusinessesRouter
     .get('/', (req, res, next) => {
-        fetch("https://api.yelp.com/v3/businesses/search?term=food&limit=15&location=boston", {
+        let lat = req.query.lat
+        let long = req.query.long
+        
+        fetch(`https://api.yelp.com/v3/businesses/search?term=food&latitude=${lat}&longitude=${long}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

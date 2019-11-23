@@ -1,5 +1,4 @@
 const express = require('express')
-const path = require('path')
 const AuthService = require('../auth/auth-service')
 const UsersService = require('./users-service')
 

@@ -4,8 +4,8 @@ INSERT INTO users (user_name, user_password)
 
 INSERT INTO business (business_id) 
     VALUES
-        ("1");
+        ("ONE");
 
 INSERT INTO user_businesses (user_id, business_id)
     VALUES 
-        (1, "1");
+        (1, 1);

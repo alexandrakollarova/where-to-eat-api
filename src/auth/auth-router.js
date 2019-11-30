@@ -4,51 +4,51 @@ const AuthService = require('./auth-service')
 const AuthRouter = express.Router()
 
 AuthRouter
-    .post('/', (req, res, next) => {
-        const user_name = req.body.user_name.value
-        const user_password = req.body.user_password.value
+  .post('/', (req, res, next) => {
+    const user_name = req.body.user_name.value
+    const user_password = req.body.user_password.value
 
-        const loginUser = { user_name, user_password }
+    const loginUser = { user_name, user_password }
 
-        for (const [key, value] of Object.entries(loginUser))
-            if (value == null)
-              return res.status(400).json({
-                  error: `Missing '${key}' in request body`
-            })
+    for (const [key, value] of Object.entries(loginUser))
+      if (value == null)
+        return res.status(400).json({
+          error: `Missing '${key}' in request body`
+          })
 
-        AuthService.getUserWithUserName(
-            req.app.get('db'),
-            loginUser.user_name
+    AuthService.getUserWithUserName(
+      req.app.get('db'),
+      loginUser.user_name
+    )
+      .then(dbUser => { 
+
+        if (!dbUser) { 
+          return res.status(400).json({
+            error: 'Incorrect username or password',
+          })
+        }
+                  
+        return AuthService.comparePasswords(
+          loginUser.user_password, dbUser.user_password
         )
-        .then(dbUser => { 
 
-            if (!dbUser) { 
-                return res.status(400).json({
-                    error: 'Incorrect username or password',
-                })
-            }
-                
-                return AuthService.comparePasswords(loginUser.user_password, dbUser.user_password)
-                    .then(compareMatch => {
-                        if (!compareMatch)
-                            return res.status(400).json({
-                                error: 'Incorrect username or password',
-                            })
+          .then(compareMatch => {
+            if (!compareMatch)
+              return res.status(400).json({
+                error: 'Incorrect username or password',
+              })
 
-                            const sub = dbUser.user_name
-                            const payload = { user_id: dbUser.id }
-                            
-                            req.session.userId.user_id = dbUser.id
-                            userID = req.session.userId
-                            res.send({
-                                userID,
-                                authToken: AuthService.createJwt(sub, payload),
-                            })
-                    })
- 
-        })
-        .catch(next)
-    })
+            const sub = dbUser.user_name
+            const payload = { user_id: dbUser.id }    
+                                           
+            res.send({ 
+              authToken: AuthService.createJwt(sub, payload),
+            })
+          })
+  
+      })
+      .catch(next)
+  })
 
 // AuthRouter
 //     .post('/refresh', requireAuth, (req, res) => {

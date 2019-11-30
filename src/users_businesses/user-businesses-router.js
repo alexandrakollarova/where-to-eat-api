@@ -36,7 +36,7 @@ UsersBusinessesRouter
       UsersBusinessesService.postBusiness(
         req.app.get('db'),
         encodedUser.user_id,
-        businessId
+        parseInt(businessId)
       )
         .then(business => {
           res.status(201)

@@ -5,12 +5,14 @@ const UsersBusinessesService = {
       .from('user_businesses') 
   },
 
-  postBusiness(knex, userId, businessId) { console.log(userId, businessId)
+  postBusiness(knex, userId, businessId) {
     return knex
-      .insert(userId, businessId)
-      .into('user_businesses')
+      .insert(businessId)
+      .into('business')
       .returning('*')
-      .then(rows => rows[0])
+      .then(rows => { 
+        return rows[0]
+      })
   },
 
   deleteBusiness(knex, id) {

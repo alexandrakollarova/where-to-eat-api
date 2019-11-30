@@ -1,5 +1,6 @@
 const express = require('express')
 const UsersBusinessesService = require('./users-businesses-service')
+const AuthService = require('../auth/auth-service')
 
 const UsersBusinessesRouter = express.Router()
 
@@ -15,17 +16,27 @@ UsersBusinessesRouter
     })
 
     .post((req, res, next) => {
-      const newBusiness = req.body.businessId
+      const activeUser = req.body.userId
+      const businessId = req.body.businessId
 
-      if (newBusiness == null) {
+      if (businessId == null) {
         return res.status(400).json({
-          error: { message: `Missing businessId in request body` }
+          error: { message: `Missing business id in request body` }
           })
-      }           
-    
+      }  
+
+      if (activeUser == null) {
+        return res.status(400).json({
+          error: { message: `Missing active user id in request body` }
+          })
+      }  
+
+      let encodedUser = AuthService.verifyJwt(activeUser)
+
       UsersBusinessesService.postBusiness(
         req.app.get('db'),
-        newBusiness
+        encodedUser.user_id,
+        businessId
       )
         .then(business => {
           res.status(201)

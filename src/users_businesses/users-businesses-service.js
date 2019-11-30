@@ -5,9 +5,9 @@ const UsersBusinessesService = {
       .from('user_businesses') 
   },
 
-  postBusiness(knex, newBusiness) {
+  postBusiness(knex, userId, businessId) { console.log(userId, businessId)
     return knex
-      .insert(newBusiness)
+      .insert(userId, businessId)
       .into('user_businesses')
       .returning('*')
       .then(rows => rows[0])

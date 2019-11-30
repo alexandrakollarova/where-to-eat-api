@@ -9,7 +9,7 @@ AuthRouter
         const user_password = req.body.user_password.value
 
         const loginUser = { user_name, user_password }
-        
+
         for (const [key, value] of Object.entries(loginUser))
             if (value == null)
               return res.status(400).json({
@@ -37,7 +37,11 @@ AuthRouter
 
                             const sub = dbUser.user_name
                             const payload = { user_id: dbUser.id }
+                            
+                            req.session.userId.user_id = dbUser.id
+                            userID = req.session.userId
                             res.send({
+                                userID,
                                 authToken: AuthService.createJwt(sub, payload),
                             })
                     })

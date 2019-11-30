@@ -8,6 +8,7 @@ const BusinessesRouter = require('./businesses/businesses-router')
 const UsersBusinessesRouter = require('./users_businesses/user-businesses-router')
 const UsersRouter = require('./users/users-router')
 const AuthRouter = require('./auth/auth-router')
+const session = require('express-session')
 const jsonBodyParser = express.json()
 
 const app = express()
@@ -29,6 +30,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+app.use(session({ 
+  secret: "someSecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
 app.use('/api/login', AuthRouter)
 app.use('/api/users', UsersRouter)
 app.use('/api/businesses', BusinessesRouter)

@@ -15,9 +15,9 @@ UsersBusinessesRouter
     })
 
     .post((req, res, next) => {
-        const businessId = req.body.businessId
-        const newBusiness = businessId
-   
+        const activeUser = req.body.userId
+        const newBusiness = req.body.businessId
+       console.log(req.session)
         if (newBusiness == null) {
           return res.status(400).json({
             error: { message: `Missing businessId in request body` }
@@ -26,6 +26,7 @@ UsersBusinessesRouter
     
         UsersBusinessesService.postBusiness(
           req.app.get('db'),
+          activeUser,
           newBusiness
         )
           .then(business => {

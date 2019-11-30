@@ -32,16 +32,30 @@ UsersBusinessesRouter
       }  
 
       let encodedUser = AuthService.verifyJwt(activeUser)
+      let business = { business_id: businessId }
 
-      UsersBusinessesService.postBusiness(
+      UsersBusinessesService.hasBusinessWithSameId(
         req.app.get('db'),
-        encodedUser.user_id,
-        parseInt(businessId)
+        business
       )
-        .then(business => {
-          res.status(201)
-        })
-          .catch(next)
+        .then(isDuplicate => { console.log(isDuplicate)
+          if (isDuplicate) {
+            UsersBusinessesService.updateExistingBusiness(
+              req.app.get('db'),
+              business
+            )
+          } else {
+            UsersBusinessesService.postBusiness(
+              req.app.get('db'),
+              //encodedUser.user_id,
+              business
+            )
+              .then(business => {
+                res.status(201)
+              })
+                .catch(next)
+          }          
+        })         
     })
 
 module.exports = UsersBusinessesRouter

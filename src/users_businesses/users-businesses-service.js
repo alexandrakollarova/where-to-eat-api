@@ -1,24 +1,36 @@
 const UsersBusinessesService = {
-  getAllUsersBusinesses(knex) {
-    return knex
-      .select('*')
-      .from('user_businesses') 
+  getAllBusinesses(db) {
+    return db
+      .from('business')
+      .select('*') 
   },
 
-  postBusiness(knex, userId, businessId) {
-    return knex
+  hasBusinessWithSameId(db, businessId) { 
+    return db('business')
+      .where(businessId)
+      .first()
+      .then(id => !!id)
+  },
+
+  postBusiness(db, businessId) {
+    return db
       .insert(businessId)
       .into('business')
       .returning('*')
-      .then(rows => { 
-        return rows[0]
-      })
+      .then(([rows]) => rows)
   },
 
-  deleteBusiness(knex, id) {
-    return knex('user_businesses')
-      .where({id})
-      .delete()
+  updateExistingBusiness(db, businessId) {
+    return db('business')
+      .where(businessId)
+      .update(businessId)
+  },
+
+  deleteBusiness(db, businessId) {
+    return db
+      .from('business')
+      .where(businessId)
+      .del()
   }
 }
 

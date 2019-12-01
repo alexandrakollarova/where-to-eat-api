@@ -30,8 +30,8 @@ UsersBusinessesRouter.route("/")
       })
       .then(() => { 
         UsersBusinessesService.getBusinessId(req.app.get("db"), business).then(
-          res => { 
-            let id = res.id
+          data => { 
+            let id = data.id
 
             UsersBusinessesService.saveBusinessWithUser(
               req.app.get("db"),
@@ -62,13 +62,24 @@ UsersBusinessesRouter.route("/")
     let user = { user_id: encodedUser.user_id };
     let business = { business_id: businessId };
 
-    UsersBusinessesService.deleteBusinessFromUser(req.app.get("db"), user, business)
-        // deletes all business from the table at that user?
-      .then(business => {
-        console.log("NUMBER OF DELETED ROWS", business)
-        res.status(200)
-      })
-      .catch(next);
-    });
+    UsersBusinessesService.getBusinessId(req.app.get("db"), business).then(
+      data => { 
+        let id = data.id
+        
+        UsersBusinessesService.deleteBusinessFromUser(
+          req.app.get("db"), 
+          id
+        )
+          .then(business => {
+            console.log("NUMBER OF DELETED ROWS", business)
+            res.status(200)
+          })
+            .catch(next);
+          });
+
+    })
+
+
+   
 
 module.exports = UsersBusinessesRouter;

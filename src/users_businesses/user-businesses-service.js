@@ -15,11 +15,13 @@ const UserBusinessesService = {
       .first()
 	},
 	
-	deleteBusinessFromUser(db, userId, businessId) {
+	deleteBusinessFromUser(db, businessId) {
     return db
       .from('user_businesses')
-      .where(userId, businessId)
-			.del()
+      .where({
+				business_id: businessId
+			})
+			.delete()
 	}
 }
 

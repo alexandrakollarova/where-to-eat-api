@@ -48,19 +48,45 @@ UsersBusinessesRouter.route("/")
           id => {
             UsersBusinessesService.storeBusinessWithUser(
               req.app.get("db"),
-              // user,
-              // { business_id: id }
               user.user_id,
               id
-            );
+            )
+              .then(result => console.log("RESULT", result))
+              .catch(err => console.log("ERROR STORING BUSINESS", err));
           }
         );
-      })
+      });
 
-      .then(business => {
-        res.status(201);
-      })
-      .catch(next);
+    // .then(business => {
+    //   res.status(201);
+    // })
+    // .catch(next);
+  })
+
+  .delete((req, res, next) => {
+    const activeUser = req.body.userId;
+    const businessId = req.body.businessId;
+
+    if (businessId == null) {
+      return res.status(400).json({
+        error: { message: `Missing business id in request body` }
+      });
+    }
+
+    if (activeUser == null) {
+      return res.status(400).json({
+        error: { message: `Missing active user id in request body` }
+      });
+    }
+
+    let encodedUser = AuthService.verifyJwt(activeUser);
+    let user = { user_id: encodedUser.user_id };
+    let business = { business_id: businessId };
+
+    UsersBusinessesService.deleteBusiness(req.app.get("db"), user, business)
+
+      .then(result => console.log("RESULT", result))
+      .catch(err => console.log("ERROR STORING BUSINESS", err));
   });
 
 module.exports = UsersBusinessesRouter;

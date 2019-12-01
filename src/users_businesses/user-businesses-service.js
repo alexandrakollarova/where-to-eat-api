@@ -1,12 +1,12 @@
 const UserBusinessesService = {
 	storeBusinessWithUser(db, userId, businessId) {
-		console.log(userId)
-		console.log(businessId)
 		return db
-      .insert(userId, businessId)
+		.insert({
+			business_id: businessId,
+			user_id: userId
+		})
       .returning('*')
       .into('user_businesses')
-      //.then(([rows]) => rows)
 	},
 
 	getBusinessId(db, businessId) { 
@@ -14,7 +14,14 @@ const UserBusinessesService = {
       .where(businessId)
       .first()
       .then(res => res.id)
-  },
+	},
+	
+	deleteBusiness(db, userId, businessId) {
+    return db
+      .from('user_businesses')
+      .where(userId, businessId)
+			.del()
+	}
 }
 
 module.exports = UserBusinessesService

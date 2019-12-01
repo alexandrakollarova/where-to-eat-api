@@ -24,13 +24,6 @@ const BusinessService = {
     return db('business')
       .where(businessId)
       .update(businessId)
-  },
-
-  deleteBusiness(db, businessId) {
-    return db
-      .from('business')
-      .where(businessId)
-      .del()
   }
 }
 

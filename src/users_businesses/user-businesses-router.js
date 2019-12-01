@@ -28,20 +28,21 @@ UsersBusinessesRouter.route("/")
           BusinessService.saveBusiness(req.app.get("db"), business);
         }
       })
-      .then(() => {
+      .then(() => { 
         UsersBusinessesService.getBusinessId(req.app.get("db"), business).then(
-          id => {console.log(id)
+          res => { 
+            let id = res.id
+
             UsersBusinessesService.saveBusinessWithUser(
               req.app.get("db"),
               user.user_id,
               id
             )
               .then(business => {
-                console.log("RESULT", business)
+                console.log("BUSINESS SAVED AS", business)
                 res.status(200)
               })
-              .catch(err => console.log("ERROR STORING BUSINESS", err));
-                // .catch(next);
+              .catch(next);
           }
         );
       })
@@ -62,13 +63,12 @@ UsersBusinessesRouter.route("/")
     let business = { business_id: businessId };
 
     UsersBusinessesService.deleteBusinessFromUser(req.app.get("db"), user, business)
-
+        // deletes all business from the table at that user?
       .then(business => {
         console.log("NUMBER OF DELETED ROWS", business)
         res.status(200)
       })
-      .catch(err => console.log("ERROR DELETING BUSINESS", err));
-        // .catch(next);
+      .catch(next);
     });
 
 module.exports = UsersBusinessesRouter;

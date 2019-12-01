@@ -2,8 +2,8 @@ const UserBusinessesService = {
 	saveBusinessWithUser(db, userId, businessId) {
 		return db
 		.insert({
-			business_id: businessId,
-			user_id: userId
+			user_id: userId,
+			business_id: businessId
 		})
       .returning('*')
       .into('user_businesses')
@@ -13,7 +13,6 @@ const UserBusinessesService = {
     return db('business')
       .where(businessId)
       .first()
-			.then(res => res.id)
 	},
 	
 	deleteBusinessFromUser(db, userId, businessId) {

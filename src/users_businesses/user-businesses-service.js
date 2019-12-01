@@ -3,10 +3,10 @@ const UserBusinessesService = {
 		console.log(userId)
 		console.log(businessId)
 		return db
-			.insert(userId, businessId)
-			.into('user_businesses')
-			.returning('*')
-			.then(([rows]) => rows)
+      .insert(userId, businessId)
+      .returning('*')
+      .into('user_businesses')
+      //.then(([rows]) => rows)
 	},
 
 	getBusinessId(db, businessId) { 

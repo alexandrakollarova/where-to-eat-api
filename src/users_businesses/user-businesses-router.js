@@ -1,6 +1,7 @@
 const express = require('express')
-const UsersBusinessesService = require('./users-businesses-service')
+const BusinessService = require('./business-service')
 const AuthService = require('../auth/auth-service')
+const UsersBusinessesService = require('./user-businesses-service')
 
 const UsersBusinessesRouter = express.Router()
 
@@ -8,7 +9,7 @@ UsersBusinessesRouter
   .route('/')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-    UsersBusinessesService.getAllUsersBusinesses(knexInstance)
+    BusinessService.getAllUsersBusinesses(knexInstance)
       .then(businesses => {     
         res.json(businesses.map(serializeNote))
       })
@@ -32,30 +33,46 @@ UsersBusinessesRouter
       }  
 
       let encodedUser = AuthService.verifyJwt(activeUser)
+      let user = { user_id: encodedUser.user_id }
       let business = { business_id: businessId }
 
-      UsersBusinessesService.hasBusinessWithSameId(
+      BusinessService.hasBusinessWithSameId(
         req.app.get('db'),
         business
       )
-        .then(isDuplicate => { console.log(isDuplicate)
+        .then(isDuplicate => { 
           if (isDuplicate) {
-            UsersBusinessesService.updateExistingBusiness(
+            BusinessService.updateExistingBusiness(
               req.app.get('db'),
               business
             )
           } else {
-            UsersBusinessesService.postBusiness(
+            BusinessService.postBusiness(
               req.app.get('db'),
-              //encodedUser.user_id,
               business
-            )
-              .then(business => {
-                res.status(201)
-              })
-                .catch(next)
+            )   
+              
           }          
-        })         
+        }) 
+        .then(() => {
+          UsersBusinessesService.getBusinessId(
+            req.app.get('db'),
+            business
+          ) 
+          .then((id) => {
+            UsersBusinessesService.storeBusinessWithUser(
+              req.app.get('db'),
+              user,
+              { business_id: id }
+            )
+          })
+        })
+          
+
+        .then(business => { 
+          res.status(201)
+        })
+          .catch(next)        
     })
 
 module.exports = UsersBusinessesRouter

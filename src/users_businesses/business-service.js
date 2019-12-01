@@ -1,4 +1,4 @@
-const UsersBusinessesService = {
+const BusinessService = {
   getAllBusinesses(db) {
     return db
       .from('business')
@@ -34,4 +34,4 @@ const UsersBusinessesService = {
   }
 }
 
-module.exports = UsersBusinessesService
+module.exports = BusinessService

@@ -1,30 +1,24 @@
 const BusinessService = {
-  getAllBusinesses(db) {
-    return db
-      .from('business')
-      .select('*') 
-  },
-
-  hasBusinessWithSameId(db, businessId) { 
-    return db('business')
+  checkForDuplicates(db, businessId) {
+    return db("business")
       .where(businessId)
       .first()
-      .then(id => !!id)
+      .then(id => !!id);
   },
 
-  postBusiness(db, businessId) {
+  saveBusiness(db, businessId) {
     return db
       .insert(businessId)
-      .into('business')
-      .returning('*')
-      .then(([rows]) => rows)
+      .into("business")
+      .returning("*")
+      .then(([rows]) => rows);
   },
 
   updateExistingBusiness(db, businessId) {
-    return db('business')
+    return db("business")
       .where(businessId)
-      .update(businessId)
+      .update(businessId);
   }
-}
+};
 
-module.exports = BusinessService
+module.exports = BusinessService;

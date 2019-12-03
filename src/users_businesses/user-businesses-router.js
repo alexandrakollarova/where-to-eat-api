@@ -23,16 +23,16 @@ UsersBusinessesRouter.route("/")
     BusinessService.checkForDuplicates(req.app.get("db"), business)
       .then(isDuplicate => {
         if (isDuplicate) {
-          BusinessService.updateExistingBusiness(req.app.get("db"), business);
+          return BusinessService.updateExistingBusiness(req.app.get("db"), business);
         } else {
-          BusinessService.saveBusiness(req.app.get("db"), business);
+          return BusinessService.saveBusiness(req.app.get("db"), business);
         }
       })
       .then(() => { 
         UsersBusinessesService.getBusinessId(req.app.get("db"), business).then(
           data => { 
             let id = data.id
-
+            console.log(id)
             UsersBusinessesService.saveBusinessWithUser(
               req.app.get("db"),
               user.user_id,

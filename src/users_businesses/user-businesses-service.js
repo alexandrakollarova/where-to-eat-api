@@ -1,4 +1,11 @@
 const UserBusinessesService = {
+	getUsersBusinesses(db, userId) {
+		return db 
+			.select('*')
+			.from('user_businesses')
+			.where(userId)
+	},
+
 	saveBusinessWithUser(db, userId, businessId) {
 		return db
 		.insert({

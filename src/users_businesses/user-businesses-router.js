@@ -6,6 +6,18 @@ const UsersBusinessesService = require("./user-businesses-service");
 const UsersBusinessesRouter = express.Router();
 
 UsersBusinessesRouter.route("/")
+  .get((req, res, next) => {
+    const activeUser = req.query.user;
+    
+    let encodedUser = AuthService.verifyJwt(activeUser);
+    let user = { user_id: encodedUser.user_id };
+console.log("here")
+    BusinessService.getUsersBusinesses(
+      req.app.get(db),
+      user
+    )
+  })
+
   .post((req, res, next) => {
     const activeUser = req.body.userId;
     const businessId = req.body.businessId;
@@ -40,7 +52,7 @@ UsersBusinessesRouter.route("/")
             )
               .then(business => {
                 console.log("BUSINESS SAVED AS", business)
-                res.status(200)
+                res.sendStatus(200)
               })
               .catch(next);
           }
@@ -72,7 +84,7 @@ UsersBusinessesRouter.route("/")
         )
           .then(business => {
             console.log("NUMBER OF DELETED ROWS", business)
-            res.status(200)
+            res.sendStatus(200)
           })
             .catch(next);
           });

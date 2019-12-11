@@ -18,25 +18,6 @@ UsersBusinessesRouter.route("/")
       user.user_id
     )
       .then(async businesses => {
-        console.log(businesses)
-        // const requests = businesses.map(business => {
-        // return fetch(`https://api.yelp.com/v3/businesses/${business.business_id}`,
-        //   {
-        //     method: "GET",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //       "Authorization": "Bearer X3oRfIMZfywOkzjRrgeCMUUN93rljhumD2Gtx0UBIeFvpvK3fK8XUYfEjjDsUg4rsCyFu2-QOl1NIFNFPEkok92cPwPH-KquWBb6T5Qk-q0N3M7TEXGI6D89J3vDXXYx",
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Access-Control-Allow-Credentials": true
-        //     }
-        //   });
-        // });
-        //Promise.all(requests).then(data => res.json(data))
-        // Promise.all(requests)
-        //   .then(responses => {
-        //   const toJson = responses.map(response => response.json());
-        //     Promise.all(toJson).then(data => console.log(data));
-        //   })
         const data = [];
 
         for (const { business_id } of businesses) {
@@ -54,7 +35,6 @@ UsersBusinessesRouter.route("/")
           const jsonData = await fromYelp.json();
           data.push(jsonData);
         }
-        console.log(data)
         res.json(data);
       })
   })
@@ -85,7 +65,7 @@ UsersBusinessesRouter.route("/")
         UsersBusinessesService.getBusinessId(req.app.get("db"), business).then(
           data => {
             let id = data.id
-            console.log(id)
+
             UsersBusinessesService.saveBusinessWithUser(
               req.app.get("db"),
               user.user_id,
@@ -130,9 +110,6 @@ UsersBusinessesRouter.route("/")
           .catch(next);
       });
 
-  })
-
-
-
+  });
 
 module.exports = UsersBusinessesRouter;

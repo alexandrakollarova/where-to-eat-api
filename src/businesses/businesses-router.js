@@ -8,7 +8,7 @@ BusinessesRouter
         let lat = req.query.lat
         let long = req.query.long
         
-        fetch(`https://api.yelp.com/v3/businesses/search?term=food&latitude=${lat}&longitude=${long}`, {
+        fetch(`https://api.yelp.com/v3/businesses/search?term=food&latitude=${lat}&longitude=${long}&limit=50`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

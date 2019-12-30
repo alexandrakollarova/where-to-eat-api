@@ -11,6 +11,7 @@ const AuthRouter = require('./auth/auth-router')
 const jsonBodyParser = express.json()
 
 const app = express()
+app.use(cors())
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -18,7 +19,6 @@ const morganOption = (NODE_ENV === 'production')
 
 app.use(morgan(morganOption))
 app.use(helmet())
-app.use(cors())
 app.use(jsonBodyParser)
 
 var bodyParser = require('body-parser')
@@ -28,13 +28,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-
-// cors config 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); 
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 app.use('/api/login', AuthRouter)
 app.use('/api/users',  UsersRouter)

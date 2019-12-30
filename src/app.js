@@ -21,6 +21,8 @@ app.use(helmet())
 app.use(jsonBodyParser)
 app.use(cors())
 
+app.options('*', cors())
+
 const bodyParser = require('body-parser')
 
 // parse application/x-www-form-urlencoded

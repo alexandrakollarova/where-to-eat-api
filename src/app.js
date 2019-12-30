@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/api/login', AuthRouter)
-app.use('/api/users', cors(corsOptions), UsersRouter)
+app.use('/api/users',  UsersRouter)
 app.use('/api/businesses', BusinessesRouter)
 app.use('/api/users_businesses', UsersBusinessesRouter)
 

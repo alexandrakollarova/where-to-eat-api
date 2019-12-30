@@ -8,6 +8,9 @@ UsersRouter
   .post('/', (req, res, next) => {
     const user_name = req.body.user_name.value;
     const user_password = req.body.user_password.value;
+
+    console.log(user_name)
+    console.log(user_password)
    
     for (const field of ['user_name', 'user_password'])
       if (!req.body[field])
@@ -17,6 +20,8 @@ UsersRouter
 
     const passwordError = UsersService.validatePassword(user_password)
     
+    console.log(passwordError)
+
     if (passwordError)
       return res.status(400).json({ error: passwordError })
 
@@ -24,16 +29,19 @@ UsersRouter
       req.app.get('db'),
       user_name
     )
-      .then(hasUserWithUserName => {
+      .then(hasUserWithUserName => { console.log(hasUserWithUserName)
         if (hasUserWithUserName)
           return res.status(400).json({ error: `Username already taken` })
       })
 
       return UsersService.checkUserInput(user_name, user_password, req)
       
-        .then(user => { 
+        .then(user => { console.log(user)
           const sub = user.user_name
           const payload = { user_id: user.id }
+
+          console.log(sub)
+          console.log(payload)
 
           res.send({
             // user : UsersService.serializeUser(user),

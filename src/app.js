@@ -29,11 +29,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-// cors options
-const corsOptions = {
-  origin: 'https://where-to-eat.now.sh/',
-  optionsSuccessStatus: 200 
-}
+// cors config 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://where-to-eat.now.sh/"); 
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use('/api/login', AuthRouter)
 app.use('/api/users', cors(corsOptions), UsersRouter)

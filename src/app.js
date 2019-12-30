@@ -29,8 +29,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// cors options
+const corsOptions = {
+  origin: 'https://where-to-eat.now.sh/',
+  optionsSuccessStatus: 200 
+}
+
 app.use('/api/login', AuthRouter)
-app.use('/api/users', UsersRouter)
+app.use('/api/users', cors(corsOptions), UsersRouter)
 app.use('/api/businesses', BusinessesRouter)
 app.use('/api/users_businesses', UsersBusinessesRouter)
 

@@ -2,7 +2,12 @@
 
 ## Description
 
-...
+### API endpoints
+
+`app.use('/api/login', AuthRouter)` handles user login  
+`app.use('/api/users',  UsersRouter)` handles creating a new user account  
+`app.use('/api/businesses', BusinessesRouter)` handles fetching restaurants from Yelp API  
+`app.use('/api/users_businesses', UsersBusinessesRouter)` handles the relation between users and saved restaurants under their account
 
 ## Create and set up database using Postgres
 
@@ -26,11 +31,12 @@
    `CREATE TABLE user_businesses (  user_id INTEGER REFERENCES users(id) NOT NULL,  business_id INTEGER REFERENCES business(id) NOT NULL,  PRIMARY KEY (user_id, business_id));`
 
 8. OPTIONAL: seed the table `users` with demo credentials  
-   Note: the password for demo_user is already hashed, you can login with user name `demo_user` and password `demo_password`
 
    `INSERT INTO users (user_name, user_password)`  
        `VALUES`  
            `('demo_user', '$2a$04$HNAwLgr8vBhbKfbHUKRane/eBWJ5WLzT12WmANApEAex7W.d91jhG');`  
+   Note: the password for demo_user is already hashed, you can login with user name `demo_user` and password `demo_password`
+
 
 ## Set up the server
 
@@ -49,3 +55,5 @@
    to use the database you created and run on your local machine
 
 6. start the server `npm start` or start use nodemon for the app `npm run dev`
+
+7. run tests `npm test`

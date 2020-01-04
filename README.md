@@ -4,10 +4,10 @@
 
 ### API endpoints
 
-`app.use('/api/login', AuthRouter)` handles user login  
-`app.use('/api/users',  UsersRouter)` handles creating a new user account  
-`app.use('/api/businesses', BusinessesRouter)` handles fetching restaurants from Yelp API  
-`app.use('/api/users_businesses', UsersBusinessesRouter)` handles the relation between users and saved restaurants under their account
+`app.use('/api/login', AuthRouter)` handles user secure login, expects username and password, sends back encrytped credentials that is then stored in local storage in browser  
+`app.use('/api/users',  UsersRouter)` handles user registration, expects username and password, sends back encrytped credentials that is then stored in local storage in browser  
+`app.use('/api/businesses', BusinessesRouter)` handles fetching restaurants from Yelp API, expects browser's latitude and longitude that is used to fetch the restaurants in your location  
+`app.use('/api/users_businesses', UsersBusinessesRouter)` handles the relation between users and saved restaurants under their account, expects encrytped user id
 
 ## Create and set up database using Postgres
 

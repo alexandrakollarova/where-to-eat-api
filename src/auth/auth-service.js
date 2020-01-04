@@ -27,6 +27,7 @@ const AuthService = {
       })
     },
     
+    // not in use
     parseBasicToken(token) {
       return Buffer
         .from(token, 'base64')

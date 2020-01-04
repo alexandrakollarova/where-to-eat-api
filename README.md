@@ -37,7 +37,6 @@
            `('demo_user', '$2a$04$HNAwLgr8vBhbKfbHUKRane/eBWJ5WLzT12WmANApEAex7W.d91jhG');`  
    Note: the password for demo_user is already hashed, you can login with user name `demo_user` and password `demo_password`
 
-
 ## Set up the server
 
 1. `cd` into the desired directory

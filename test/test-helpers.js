@@ -5,7 +5,7 @@ const { JWT_SECRET } = require('../src/config')
 function makeTestUsers() {
   return [
     {
-      id: 1,
+      user_id: 1,
       user_name: "demo_user",
       user_password: "demo_password"
     }
@@ -33,6 +33,13 @@ function seedUsers(db, users) {
     .then(([user]) => user)
 }
 
+function hasUserWithUserName(db, user_name) {
+  return db('users')
+    .where({ user_name })
+    .first()
+    .then(user => !!user)
+}
+
 function makeAuthHeader(user, secret = JWT_SECRET) {
   const token = jwt.sign({ user_id: user.id }, secret, {
     subject: user.user_name,
@@ -45,5 +52,6 @@ module.exports = {
   makeTestUsers,
   cleanTables,
   makeAuthHeader,
-  seedUsers
+  seedUsers,
+  hasUserWithUserName
 }

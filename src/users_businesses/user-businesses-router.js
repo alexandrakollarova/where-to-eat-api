@@ -9,10 +9,10 @@ const UsersBusinessesRouter = express.Router();
 UsersBusinessesRouter.route("/")
   .get((req, res, next) => {
     const activeUser = req.query.user;
-
+    
     let encodedUser = AuthService.verifyJwt(activeUser);
     let user = { user_id: encodedUser.user_id };
-
+    console.log("user:" + user)
     UsersBusinessesService.getUsersBusinessesId(
       req.app.get("db"),
       user.user_id

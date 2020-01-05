@@ -39,8 +39,7 @@ UsersRouter
             // user : UsersService.serializeUser(user),
             authToken : AuthService.createJwt(sub, payload)
           }) 
-        })
-        
+        })        
       .catch(next)
   })
 

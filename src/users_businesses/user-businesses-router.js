@@ -12,7 +12,7 @@ UsersBusinessesRouter.route("/")
     
     let encodedUser = AuthService.verifyJwt(activeUser);
     let user = { user_id: encodedUser.user_id };
-    console.log("user:" + user)
+
     UsersBusinessesService.getUsersBusinessesId(
       req.app.get("db"),
       user.user_id

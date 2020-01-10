@@ -36,7 +36,7 @@ describe('Auth Endpoint', () => {
       }
     }
 
-    it.skip(`responds with 400 required when username is missing`, () => {
+    it(`responds with 400 required when username is missing`, () => {
       delete loginAttemptBody.user_name.value
 
       return supertest(app)
@@ -47,7 +47,7 @@ describe('Auth Endpoint', () => {
         })
     })
 
-    it.skip(`responds 400 'invalid username or password' when bad username provided`, () => {
+    it(`responds 400 'invalid username or password' when bad username provided`, () => {
       const userInvalidUser = {
         user_name: {
           value: 'wrongUsername'
@@ -63,7 +63,7 @@ describe('Auth Endpoint', () => {
         .expect(400, { error: `Incorrect username or password` })
     })
 
-    it.skip(`responds 400 'invalid username or password' when bad password provided`, () => {
+    it(`responds 400 'invalid username or password' when bad password provided`, () => {
       const userInvalidUser = {
         user_name: {
           value: loginAttemptBody.user_name

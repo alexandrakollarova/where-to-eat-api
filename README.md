@@ -1,7 +1,5 @@
 # where-to-eat API
 
-## Description
-
 ### API endpoints
 
 `app.use('/api/login', AuthRouter)` accept POST request, handles user secure login, expects username and password, sends back encrytped credentials that is then stored in local storage in browser  
